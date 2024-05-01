@@ -12,6 +12,8 @@
       ./modules/nvidia.nix
       ./modules/mounts.nix
       ./modules/razer.nix
+      ./modules/virtualization.nix
+      ./modules/gaming.nix
     ];
 
   # Bootloader.
@@ -91,7 +93,7 @@
     isNormalUser = true;
     description = "d2";
     extraGroups = [ "networkmanager" "wheel" "docker" "shared"];
-    shell =  pkgs.zsh;
+#     shell =  pkgs.zsh;
     packages = with pkgs; [];
   };
 
@@ -146,6 +148,9 @@
     unstable.obsidian
     git
     vmware-workstation
+    unstable.cargo
+    unstable.rustc
+
 
     # fun
 #    unstable.steam
@@ -160,8 +165,6 @@
 #    unstable.winetricks
 #    unstable.gamemode
 #    unstable.mangohud
-    unstable.cargo
-    unstable.rustc
 
     # misc.
     anki
@@ -173,14 +176,6 @@
     preferences = {
       "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
-  };
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    gamescopeSession.enable = true;
-    extraCompatPackages = with pkgs; [ proton-ge-bin ];
   };
 
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk ];
@@ -218,5 +213,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }

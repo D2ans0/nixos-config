@@ -19,13 +19,13 @@
   };
 
   fileSystems."/run/media/d2/WDBlue 7200RPM" = {
-    device = "/dev/sdb1";
+    device = "/dev/sda1";
     fsType = "ntfs-3g";
     options = [ "rw" "nosuid" "nodev" "uid=1000" "gid=100" ];
   };
 
   fileSystems."/run/media/d2/ADATA 256GB" = {
-    device = "/dev/sda1";
+    device = "/dev/sdb1";
     fsType = "ntfs-3g";
     options = [ "rw" "nosuid" "nodev" "uid=1000" "gid=100" ];
   };

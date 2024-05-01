@@ -18,5 +18,4 @@
     };
   };
   hardware.bluetooth.input.General = { UserspaceHID = true; };
-  hardware.xpadneo.enable = true;
 }
