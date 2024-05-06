@@ -181,6 +181,7 @@
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk ];
   xdg.portal.enable = true;
   services.flatpak.enable = true;
+  programs.noisetorch.enable = true;
   # installed flatpak packages:
   # dev.vencord.Vesktop
   # com.usebottles.bottles
