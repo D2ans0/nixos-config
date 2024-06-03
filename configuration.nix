@@ -12,7 +12,7 @@
       ./modules/nvidia.nix
       ./modules/mounts.nix
       ./modules/razer.nix
-      ./modules/virtualization.nix
+#       ./modules/virtualization.nix # VMware workstation download broken (thanks, Broadcom)
       ./modules/gaming.nix
     ];
 
@@ -52,13 +52,13 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -93,7 +93,7 @@
     isNormalUser = true;
     description = "d2";
     extraGroups = [ "networkmanager" "wheel" "docker" "shared"];
-#     shell =  pkgs.zsh;
+    shell =  pkgs.zsh;
     packages = with pkgs; [];
   };
 
@@ -104,7 +104,6 @@
       permittedInsecurePackages = [ "openssl-1.1.1w" ];
       packageOverrides = pkgs: {
         unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
-        nexusmods = import (fetchTarball "https://github.com/matejc/nixpkgs/archive/nexus-mods-app_2.tar.gz") { config = { allowUnfree = true; }; };
       };
     };
   };
@@ -121,19 +120,20 @@
     puddletag
     wireguard-tools
     qbittorrent
-#     unstable.linuxKernel.packages.linux_latest_libre.xpadneo
     htop
     vulkan-tools
     unstable.cosmic-term
     unstable.libgcc
     unstable.kdePackages.spectacle
+    ffmpeg
+    openssl_1_1
 
     # administration
     rustdesk
     remmina
+    nix-index
 
     # socials
-#     unstable.vesktop # already installed via flatpak
     teamspeak_client
     telegram-desktop
     element-desktop
@@ -144,27 +144,20 @@
     kate
     docker
     vscode
-    dbeaver
+    dbeaver-bin
     unstable.obsidian
     git
-    vmware-workstation
     unstable.cargo
     unstable.rustc
 
 
     # fun
-#    unstable.steam
     obs-studio
     gimp
     unstable.spotify
-#    lutris
-#    nexusmods.nexus-mods-app # 2024/04/26 - doesn't build yet
-#    unstable.wine64
-#    unstable.wine-wayland
-#    unstable.protontricks
-#    unstable.winetricks
-#    unstable.gamemode
-#    unstable.mangohud
+    (appimage-run.override {
+      extraPkgs = pkgs: [ pkgs.icu ];
+    })
 
     # misc.
     anki
@@ -181,11 +174,10 @@
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk ];
   xdg.portal.enable = true;
   services.flatpak.enable = true;
-  programs.noisetorch.enable = true;
   # installed flatpak packages:
   # dev.vencord.Vesktop
   # com.usebottles.bottles
-
+  # com.github.Matoking.protontricks
 
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -199,7 +191,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

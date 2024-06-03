@@ -22,11 +22,25 @@
 
   programs.gamemode.enable = true;
 
-  # enable mangohud for all vulkan app
+  programs.alvr = {
+  enable = true;
+  package = with pkgs; [ unstable.alvr ]
+  openFirewall = true;
+  };
+  # enable mangohud for all vulkan apps
   hardware.opengl = {
   extraPackages = with pkgs; [mangohud];
   extraPackages32 = with pkgs; [mangohud];
   };
+
+  environment.systemPackages = with pkgs; [
+    prismlauncher
+    wineWowPackages.stable
+    winetricks
+    protontricks
+    gnome.zenity
+    p7zip
+  ];
 
   # Xbox controller compatibility
   # hardware.xone.enable = true;
