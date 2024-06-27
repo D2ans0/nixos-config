@@ -12,7 +12,7 @@
       ./modules/nvidia.nix
       ./modules/mounts.nix
       ./modules/razer.nix
-#       ./modules/virtualization.nix # VMware workstation download broken (thanks, Broadcom)
+      ./modules/virtualization.nix # VMware workstation download broken (thanks, Broadcom)
       ./modules/gaming.nix
     ];
 
@@ -23,6 +23,10 @@
   networking.hostName = "stumper"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -113,7 +117,6 @@
     # utilities
     zsh
     starship # zsh prompt
-    vim
     wget
     nmap
     vlc
@@ -124,9 +127,11 @@
     vulkan-tools
     unstable.cosmic-term
     unstable.libgcc
-    unstable.kdePackages.spectacle
     ffmpeg
     openssl_1_1
+    unrar
+    (appimage-run.override { extraPkgs = pkgs: [ pkgs.icu ]; })
+    gsettings-desktop-schemas # dependency for flynnyviz
 
     # administration
     rustdesk
@@ -142,22 +147,26 @@
     # productivity
     thunderbird
     kate
-    docker
-    vscode
-    dbeaver-bin
+    vim
     unstable.obsidian
-    git
-    unstable.cargo
-    unstable.rustc
 
+    # programming
+    vscode
+    git
+    dbeaver-bin
+    unstable.rustup
+    gcc
+    pkg-config
+
+    # creative
+    (blender.override { cudaSupport = true; })
+    pureref
+    davinci-resolve
+    gimp
+    obs-studio
 
     # fun
-    obs-studio
-    gimp
     unstable.spotify
-    (appimage-run.override {
-      extraPkgs = pkgs: [ pkgs.icu ];
-    })
 
     # misc.
     anki
