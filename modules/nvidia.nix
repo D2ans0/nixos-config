@@ -4,7 +4,8 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.packageOverrides = pkgs: {
     unstable = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
-    nvidia_555_beta = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/c0024cfbe18d290fff52c20b0afef5ac33f7a16a.tar.gz") { config = { allowUnfree = true; }; };
+    nvidia_555_42_beta = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/c0024cfbe18d290fff52c20b0afef5ac33f7a16a.tar.gz") { config = { allowUnfree = true; }; };
+    nvidia_555_52_beta = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/46a8207b852d2243e889f731e197b06a7052bac2.tar.gz") { config = { allowUnfree = true; }; };
   };
 
 
@@ -21,7 +22,8 @@
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
-#     package = (pkgs.unstable.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.latest; # latest stable
-    package = (pkgs.nvidia_555_beta.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.beta; # 555.42.02
+#    package = (pkgs.unstable.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.latest; # latest stable
+#    package = (pkgs.nvidia_555_42_beta.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.beta; # 555.42.02
+    package = (pkgs.nvidia_555_52_beta.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.beta; # 555.52.02
   };
 }
