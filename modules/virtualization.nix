@@ -1,5 +1,5 @@
 { ... }:
 { 
-    virtualisation.vmware.host.enable = false; # VMware workstation download broken (thanks, Broadcom)
+    virtualisation.vmware.host.enable = true;
     virtualisation.docker.enable = true;
 }
