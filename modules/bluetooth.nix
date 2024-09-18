@@ -18,4 +18,5 @@
     };
   };
   hardware.bluetooth.input.General = { UserspaceHID = true; };
+  boot.kernelParams = [ "btusb.enable_autosuspend=0" ];
 }
