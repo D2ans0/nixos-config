@@ -12,7 +12,7 @@
       ./modules/nvidia.nix
       ./modules/mounts.nix
       ./modules/razer.nix
-      ./modules/virtualization.nix # VMware workstation download broken (thanks, Broadcom)
+      ./modules/virtualization.nix
       ./modules/gaming.nix
     ];
 
@@ -26,7 +26,9 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [];
+  programs.nix-ld.libraries = with pkgs; [
+    icu
+  ];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -105,7 +107,6 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      permittedInsecurePackages = [ "openssl-1.1.1w" ];
       packageOverrides = pkgs: {
         unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
       };
@@ -124,14 +125,17 @@
     wireguard-tools
     qbittorrent
     htop
+    ctop
     vulkan-tools
     unstable.cosmic-term
     unstable.libgcc
     ffmpeg
-    openssl_1_1
     unrar
     (appimage-run.override { extraPkgs = pkgs: [ pkgs.icu ]; })
     gsettings-desktop-schemas # dependency for flynnyviz
+    unzip
+    dualsensectl
+    ncdu
 
     # administration
     rustdesk
@@ -149,10 +153,11 @@
     kate
     vim
     unstable.obsidian
+    zoom-us
 
     # programming
     vscode
-    git
+    delta # pager for git
     dbeaver-bin
     unstable.rustup
     gcc
@@ -163,7 +168,12 @@
     pureref
     davinci-resolve
     gimp
-    obs-studio
+#    obs-studio
+    (pkgs.wrapOBS {
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-vkcapture
+    ];
+  })
 
     # fun
     unstable.spotify
@@ -179,6 +189,32 @@
       "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
   };
+  programs.git = {
+    enable = true;
+#   MOVE TO HOME-MANAGER
+#    extraConfig = {
+#        user = {
+#            name = "D2ans0";
+#            email = "git@stumpy.dev";
+#        };
+#        init = { defaultBranch = "main"; };
+#        core = { pager = "delta"; };
+#        interactive = { diffFilter = "delta --color-only"; };
+#        delta = {
+#            navigate = true;
+#            side-by-side = true;
+#            line-numbers = true;
+#        };
+#        merge = { conflictstyle = "diff3"; };
+#        diff = { colorMoved = "default"; };
+#    };
+  };
+
+  fonts.packages = with pkgs; [
+    fira-code-nerdfont
+    jetbrains-mono
+  ];
+
 
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk ];
   xdg.portal.enable = true;
