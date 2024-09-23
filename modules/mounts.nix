@@ -7,7 +7,7 @@
     options = let
       automount_opts = "x-systemd.automount,noauto,rw";
 
-    in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=2004"];
+    in ["${automount_opts},credentials=/etc/nixos/secrets/smb-local,uid=1000,gid=2004"];
   };
 
   boot.supportedFilesystems = [ "ntfs" ];
