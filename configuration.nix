@@ -25,6 +25,12 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nix.gc = { 
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d +5";
+  };
+
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     icu
