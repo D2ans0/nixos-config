@@ -177,6 +177,7 @@
 
     # fun
     unstable.spotify
+    unstable.koodo-reader
 
     # misc.
     anki
