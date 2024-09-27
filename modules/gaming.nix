@@ -12,6 +12,7 @@
         proton-ge9-9 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/2970ef41ee4eb0478eaba1118c71438ca5bc8a37.tar.gz") { config = { allowUnfree = true; }; };
         proton-ge9-11 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/d93419d83721acbabf95e870721e29041e5df07e.tar.gz") { config = { allowUnfree = true; }; };
         proton-ge9-12 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/eccdf319d767436590ac081e16f055fff91f6cd8.tar.gz") { config = { allowUnfree = true; }; };
+        proton-ge9-13 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/a09c9e044bde2d3dc076e914a6883b6ac3a02223.tar.gz") { config = { allowUnfree = true; }; };
         
 #         nexusmods = import (fetchTarball "https://github.com/matejc/nixpkgs/archive/nexus-mods-app_2.tar.gz") { config = { allowUnfree = true; }; };
       };
@@ -23,7 +24,7 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     gamescopeSession.enable = true;
-    extraCompatPackages = with pkgs; [ proton-ge9-5.proton-ge-bin proton-ge9-7.proton-ge-bin proton-ge9-9.proton-ge-bin proton-ge9-11.proton-ge-bin proton-ge9-12.proton-ge-bin];
+    extraCompatPackages = with pkgs; [ proton-ge9-5.proton-ge-bin proton-ge9-7.proton-ge-bin proton-ge9-9.proton-ge-bin proton-ge9-11.proton-ge-bin proton-ge9-12.proton-ge-bin proton-ge9-13.proton-ge-bin];
   };
 
   programs.gamemode.enable = true;
