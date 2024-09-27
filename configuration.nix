@@ -127,7 +127,7 @@
     wget
     nmap
     vlc
-    puddletag
+    picard
     wireguard-tools
     qbittorrent
     htop
