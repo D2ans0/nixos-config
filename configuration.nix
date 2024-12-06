@@ -14,6 +14,7 @@
       ./modules/razer.nix
       ./modules/virtualization.nix
       ./modules/gaming.nix
+      ./modules/smbd.nix
     ];
 
   # Bootloader.
@@ -77,7 +78,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -129,7 +129,7 @@
     vlc
     picard
     wireguard-tools
-    qbittorrent
+    unstable.qbittorrent
     htop
     ctop
     vulkan-tools
@@ -144,6 +144,9 @@
     ncdu
 
     # administration
+    azure-cli
+    kubectl
+    nvtopPackages.nvidia
     rustdesk
     remmina
     nix-index
@@ -171,7 +174,7 @@
 
     # creative
     (blender.override { cudaSupport = true; })
-    pureref
+    unstable.pureref
     davinci-resolve
     gimp
 #    obs-studio
@@ -222,9 +225,11 @@
     jetbrains-mono
   ];
 
-
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk ];
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk ];
+    xdgOpenUsePortal = true;
+  };
   services.flatpak.enable = true;
   # installed flatpak packages:
   # dev.vencord.Vesktop
