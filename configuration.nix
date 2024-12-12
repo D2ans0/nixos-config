@@ -142,10 +142,12 @@
     unzip
     dualsensectl
     ncdu
+    jq
 
     # administration
     azure-cli
     kubectl
+    kubernetes-helm
     nvtopPackages.nvidia
     rustdesk
     remmina
