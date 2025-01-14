@@ -201,6 +201,7 @@
       "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
   };
+  programs.kdeconnect.enable = true;
   programs.git = {
     enable = true;
 #   MOVE TO HOME-MANAGER
