@@ -143,6 +143,7 @@
     dualsensectl
     ncdu
     jq
+    xdotool
 
     # administration
     azure-cli
@@ -192,6 +193,7 @@
 
     # misc.
     anki
+    unstable.kando
   ];
 
   programs.dconf.enable = true;
