@@ -34,9 +34,9 @@
 
   programs.alvr = {
     enable = true;
-    package = pkgs.unstable.alvr;
     openFirewall = true;
   };
+
   # enable mangohud for all vulkan apps
   hardware.graphics = {
     extraPackages = with pkgs; [mangohud];
