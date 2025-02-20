@@ -125,7 +125,9 @@
     zsh
     starship # zsh prompt
     wget
+    wget2
     nmap
+    lsof
     vlc
     picard
     wireguard-tools
@@ -180,12 +182,6 @@
     unstable.pureref
     davinci-resolve
     gimp
-#    obs-studio
-    (pkgs.wrapOBS {
-    plugins = with pkgs.obs-studio-plugins; [
-      obs-vkcapture
-    ];
-  })
 
     # fun
     unstable.spotify
@@ -196,6 +192,15 @@
     unstable.kando
   ];
 
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-vkcapture
+      obs-pipewire-audio-capture
+    ];
+  };
   programs.dconf.enable = true;
   programs.firefox = {
     enable = true;
