@@ -4,11 +4,11 @@
     config = {
       allowUnfree = true;
       packageOverrides = pkgs: {
-        unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
-        proton-ge9-5 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/29fe096e2030dd8741bb97dc1c06547816ac957f.tar.gz") { config = { allowUnfree = true; }; };
-        proton-ge9-13 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/a09c9e044bde2d3dc076e914a6883b6ac3a02223.tar.gz") { config = { allowUnfree = true; }; };
-        proton-ge9-18 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f975c8df9ec0c6ce5b50f8d43e7fdac085081914.tar.gz") { config = { allowUnfree = true; }; };
-        proton-ge9-25 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/5168db408888db34667e8e7dccfe85e568c4349c.tar.gz") { config = { allowUnfree = true; }; };
+        unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {};
+        ge9-5 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/29fe096e2030dd8741bb97dc1c06547816ac957f.tar.gz") {};
+        ge9-13 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/a09c9e044bde2d3dc076e914a6883b6ac3a02223.tar.gz") {};
+        ge9-18 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f975c8df9ec0c6ce5b50f8d43e7fdac085081914.tar.gz") {};
+        ge9-25 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/5168db408888db34667e8e7dccfe85e568c4349c.tar.gz") { steamDisplayName = "GE-Proton-9.25"; };
       };
     };
   };
@@ -18,13 +18,12 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     gamescopeSession.enable = true;
-    extraCompatPackages = with pkgs; [ 
-      proton-ge9-5.proton-ge-bin
-      proton-ge9-13.proton-ge-bin
-      proton-ge9-18.proton-ge-bin
-      proton-ge9-25.proton-ge-bin.override { steamDisplayName = "GE-Proton-9.25"; }
+    extraCompatPackages = with pkgs; [
       unstable.proton-ge-bin
-
+      ge9-5.proton-ge-bin
+      ge9-13.proton-ge-bin
+      ge9-18.proton-ge-bin
+      ge9-25.proton-ge-bin
     ];
     protontricks.enable = true;
   };
