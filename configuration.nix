@@ -22,7 +22,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "stumper"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -42,6 +41,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.interfaces.eno1.wakeOnLan.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Tbilisi";
