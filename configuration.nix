@@ -34,6 +34,7 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     icu
+    libgcc.lib
   ];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -113,9 +114,6 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      packageOverrides = pkgs: {
-        unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
-      };
     };
   };
   # List packages installed in system profile. To search, run:
@@ -131,12 +129,12 @@
     vlc
     picard
     wireguard-tools
-    unstable.qbittorrent
+    qbittorrent
     htop
     ctop
     vulkan-tools
-    unstable.cosmic-term
-    unstable.libgcc
+    cosmic-term
+    libgcc
     ffmpeg
     unrar
     (appimage-run.override { extraPkgs = pkgs: [ pkgs.icu ]; })
@@ -166,30 +164,30 @@
     thunderbird
     kate
     vim
-    unstable.obsidian
+    obsidian
     zoom-us
 
     # programming
     vscode
     delta # pager for git
     dbeaver-bin
-    unstable.rustup
+    rustup
     gcc
     pkg-config
 
     # creative
     (blender.override { cudaSupport = true; })
-    unstable.pureref
+    pureref
     davinci-resolve
     gimp
 
     # fun
-    unstable.spotify
-    unstable.koodo-reader
+    spotify
+    koodo-reader
 
     # misc.
     anki
-    unstable.kando
+    kando
   ];
 
   programs.obs-studio = {
