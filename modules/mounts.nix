@@ -19,7 +19,7 @@
   };
 
   fileSystems."/run/media/d2/WDBlue 7200RPM" = {
-    device = "/dev/disk/by-partuuid/9535318d-4a9c-4f10-bdd7-722c03ba832e";
+    device = "/dev/disk/by-partuuid/725dc8bc-2fa3-451e-ab42-a1f17f7fbbe9";
     fsType = "ntfs-3g";
     options = [ "rw" "nosuid" "nodev" "nofail" "uid=1000" "gid=100" ];
   };
