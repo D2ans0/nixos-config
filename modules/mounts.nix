@@ -19,14 +19,14 @@
   };
 
   fileSystems."/run/media/d2/WDBlue 7200RPM" = {
-    device = "/dev/disk/by-partuuid/725dc8bc-2fa3-451e-ab42-a1f17f7fbbe9";
-    fsType = "ntfs-3g";
-    options = [ "rw" "nosuid" "nodev" "nofail" "uid=1000" "gid=100" ];
+    device = "/dev/disk/by-partuuid/c6100257-d4fa-4057-b0b4-29fb2f446529";
+    fsType = "ext4";
+    options = [ "nofail" ];
   };
 
   fileSystems."/run/media/d2/ADATA 256GB" = {
-    device = "/dev/disk/by-partuuid/46e55d62-d889-493e-8c4a-1ff0e8f9afb5";
-    fsType = "ntfs-3g";
-    options = [ "rw" "nosuid" "nodev" "nofail" "uid=1000" "gid=100" ];
+    device = "/dev/disk/by-partuuid/3bca77fa-4eb0-4bb1-87aa-3b354129e200";
+    fsType = "ext4";
+    options = [ "nofail" ];
   };
 }
