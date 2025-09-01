@@ -18,7 +18,7 @@
         "map to guest" = "bad user";
       };
       "public" = {
-        "path" = "/run/media/d2/WDBlue 7200RPM/Media/Video/";
+        "path" = "/run/media/d2/WDBlue 7200RPM/Public";
         "browseable" = "yes";
         "read only" = "yes";
         "guest ok" = "yes";
