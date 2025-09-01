@@ -17,18 +17,18 @@ let
     settingsSha256 = "sha256-6n9mVkEL39wJj5FB1HBml7TTJhNAhS/j5hqpNGFQE4w=";
     persistencedSha256 = "sha256-gmco+clEIY8bedxHC4wp+fH5JavTzyI1BI8BxoeJJI=";
   };
+  nvidia_580_76_05 = config.boot.kernelPackages.nvidiaPackages.mkDriver { 
+    version = "580.76.05";                                                     
+    sha256_64bit = "sha256-IZvmNrYJMbAhsujB4O/4hzY8cx+KlAyqh7zAVNBdl/0=";
+    sha256_aarch64 = "sha256-NL2DswzVWQQMVM092NmfImqKbTk9VRgLL8xf4QEvGAQ=";
+    openSha256 = "sha256-xEPJ9nskN1kISnSbfBigVaO6Mw03wyHebqQOQmUg/eQ=";
+    settingsSha256 = "sha256-ll7HD7dVPHKUyp5+zvLeNqAb6hCpxfwuSyi+SAXapoQ=";
+    persistencedSha256 = "sha256-bs3bUi8LgBu05uTzpn2ugcNYgR5rzWEPaTlgm0TIpHY=";
+  };                                                                           
+
 in {
   # Allow unfree, and pin older driver versions
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.packageOverrides = pkgs: {
-#    nvidia_555_42_beta = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/c0024cfbe18d290fff52c20b0afef5ac33f7a16a.tar.gz") { config = { allowUnfree = true; }; };
-#    nvidia_555_52_beta = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/46a8207b852d2243e889f731e197b06a7052bac2.tar.gz") { config = { allowUnfree = true; }; };
-#    nvidia_555_58_prod = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/10ed11d6856a7b67b9b2cef5e52af5c7de34b93f.tar.gz") { config = { allowUnfree = true; }; };
-#    nvidia_560_35_prod = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/3a4ac243bf3ec40a2cd558f1dfcfe540b42b62c6.tar.gz") { config = { allowUnfree = true; }; };
-#    nvidia_565_77_prod = import (fetchTarball "https://github.com/nixos/nixpkgs/archive/b0749e8e6fbce843a674d0cdab7777b6d042002d.tar.gz") { config = { allowUnfree = true; }; };
-  };
-
-
 
   hardware.graphics = {
     enable = true;
@@ -41,15 +41,7 @@ in {
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
-#    package = (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.latest; # latest stable
-#    package = (pkgs.nvidia_555_42_beta.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.beta; # 555.42.02
-#    package = (pkgs.nvidia_555_52_beta.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.beta; # 555.52.02
-#    package = (pkgs.nvidia_555_58_prod.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.latest; # 555.58
-#    package = (pkgs.nvidia_560_35_prod.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.latest; # 560.35
-#    package = (pkgs.nvidia_565_77_prod.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.beta; # 565.57
-#    package = (pkgs.nvidia_570_133_prod.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.production; # 570.133
 #    package = config.boot.kernelPackages.nvidiaPackages.production;
-#    package = nvidia_570_133_07;
-    package = nvidia_575_51_02_beta;
+    package = nvidia_580_76_05;
   };
 }
