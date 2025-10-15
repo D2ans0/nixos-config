@@ -15,6 +15,7 @@
       ./modules/virtualization.nix
       ./modules/gaming.nix
       ./modules/smbd.nix
+      ./modules/music.nix
     ];
 
   # Bootloader.
@@ -88,10 +89,6 @@
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    wireplumber.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -150,7 +147,6 @@
     kubectl
     kubernetes-helm
     nvtopPackages.nvidia
-    rustdesk
     remmina
     nix-index
 
@@ -176,9 +172,10 @@
     pkg-config
 
     # creative
-    (blender.override { cudaSupport = true; })
+    #(blender.override { cudaSupport = true; })
+    blender
     pureref
-    davinci-resolve
+    kdenlive
     gimp
 
     # fun
