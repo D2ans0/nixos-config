@@ -15,7 +15,7 @@
       ./modules/virtualization.nix
       ./modules/gaming.nix
       ./modules/smbd.nix
-      ./modules/music.nix
+      ./modules/audio.nix
     ];
 
   # Bootloader.
@@ -78,18 +78,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -206,23 +194,6 @@
   programs.kdeconnect.enable = true;
   programs.git = {
     enable = true;
-#   MOVE TO HOME-MANAGER
-#    extraConfig = {
-#        user = {
-#            name = "D2ans0";
-#            email = "git@stumpy.dev";
-#        };
-#        init = { defaultBranch = "main"; };
-#        core = { pager = "delta"; };
-#        interactive = { diffFilter = "delta --color-only"; };
-#        delta = {
-#            navigate = true;
-#            side-by-side = true;
-#            line-numbers = true;
-#        };
-#        merge = { conflictstyle = "diff3"; };
-#        diff = { colorMoved = "default"; };
-#    };
   };
 
   fonts.packages = with pkgs; [
@@ -241,14 +212,6 @@
   # com.usebottles.bottles
   # com.github.Matoking.protontricks
 
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # List services that you want to enable:
 
