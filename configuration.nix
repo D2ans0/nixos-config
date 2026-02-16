@@ -9,7 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./modules/bluetooth.nix
-      ./modules/nvidia.nix
+      # ./modules/nvidia.nix # no longer using nvidia gpu
+      ./modules/amd.nix
       ./modules/mounts.nix
       ./modules/razer.nix
       ./modules/virtualization.nix
@@ -27,7 +28,7 @@
       efi.canTouchEfiVariables = true;
     };
     kernel.sysctl = {
-      "vm.swappiness" = 5;
+      "vm.swappiness" = 20;
     };
   };
 
@@ -38,7 +39,7 @@
   nix.gc = { 
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 7d +5";
+    options = "--delete-older-than 7d +1";
   };
 
   programs.nix-ld.enable = true;
@@ -52,7 +53,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.interfaces.eno1.wakeOnLan.enable = true;
+  networking.interfaces.enp9s0.wakeOnLan.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Tbilisi";
@@ -72,9 +73,7 @@
     LC_TIME = "en_DK.UTF-8";
   };
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
-
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
@@ -129,7 +128,7 @@
     vulkan-tools
     cosmic-term
     libgcc
-    ffmpeg
+    ffmpeg-full
     unrar
     (appimage-run.override { extraPkgs = pkgs: [ pkgs.icu ]; })
     gsettings-desktop-schemas # dependency for flynnyviz
@@ -143,19 +142,16 @@
     azure-cli
     kubectl
     kubernetes-helm
-    nvtopPackages.nvidia
     remmina
     nix-index
 
     # socials
-    teamspeak_client
+    # teamspeak3 # removed because of qtwebengine 5, which depends on chromium. QT-WE5 doesn't get built by Hydra as it's insecure. I AM NOT BUILDING CHROMIUM JUST TO UPDATE MY DAMN SYSTEM
     telegram-desktop
-    element-desktop
     signal-desktop
 
     # productivity
     thunderbird
-    kate
     vim
     obsidian
     zoom-us
@@ -169,10 +165,10 @@
     pkg-config
 
     # creative
-    #(blender.override { cudaSupport = true; })
+    inkscape
+    adwaita-icon-theme # undeclared inkscape dependency, waiting on #447250 in nixpkgs
     blender
     pureref
-    kdenlive
     gimp
 
     # fun
@@ -205,8 +201,15 @@
     enable = true;
   };
 
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-qt;
+    enableSSHSupport = true;
+  };
+
   fonts.packages = with pkgs; [
-    fira-code-nerdfont
+    nerd-fonts.fira-code
     jetbrains-mono
   ];
 
@@ -226,6 +229,8 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.fwupd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
