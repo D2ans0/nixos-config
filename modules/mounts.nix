@@ -24,9 +24,9 @@
     options = [ "nofail" ];
   };
 
-  fileSystems."/run/media/d2/ADATA 256GB" = {
-    device = "/dev/disk/by-partuuid/3bca77fa-4eb0-4bb1-87aa-3b354129e200";
-    fsType = "ext4";
-    options = [ "nofail" ];
-  };
+#  fileSystems."/run/media/d2/ADATA 256GB" = {
+#    device = "/dev/disk/by-partuuid/3bca77fa-4eb0-4bb1-87aa-3b354129e200";
+#    fsType = "ext4";
+#    options = [ "nofail" ];
+#  };
 }
