@@ -33,12 +33,13 @@
 
   environment.systemPackages = with pkgs; [
     prismlauncher           # minecraft launcher
-    wineWowPackages.stable
+    wineWow64Packages.stable
     winetricks
     zenity                  # mod manager 2 installer requirement
     p7zip
     sunshine                # game streaming
     mangohud                # performance UI for vulkan applications
+    satisfactorymodmanager
   ];
 
   security.wrappers.sunshine = {
