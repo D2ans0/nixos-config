@@ -2,7 +2,7 @@
 {
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -13,9 +13,20 @@
     jack.enable = true;
   };
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      packageOverrides = pkgs: {
+        yabridge-fix = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8dadfa6fde2657da2ffee788765b7b6136ffe2a5.tar.gz") {};
+      };
+      permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
+    };
+  };
+
+
   environment.systemPackages = with pkgs; [
     reaper
-    yabridge
+    yabridge-fix.yabridge
     yabridgectl
   ];
 
