@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  ## Boot ##
-  # boot.initrd.kernelModules = [ "amdgpu" ]; # Load amdgpu driver before boot
-
-  ## Enable AMD overclocking, should be in hardware-configuration.nix ##
-  #boot.kernelModules = [ "amdgpu" ];
-
   ## Drivers ##
   hardware.amdgpu.initrd.enable = true;
 
