@@ -16,9 +16,6 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      packageOverrides = pkgs: {
-        yabridge-fix = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8dadfa6fde2657da2ffee788765b7b6136ffe2a5.tar.gz") {};
-      };
       permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
     };
   };
@@ -26,7 +23,7 @@
 
   environment.systemPackages = with pkgs; [
     reaper
-    yabridge-fix.yabridge
+    yabridge
     yabridgectl
   ];
 
