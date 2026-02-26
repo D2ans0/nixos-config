@@ -1,6 +1,18 @@
 { pkgs, ... }:
 {
   nixpkgs = {
+    overlays = [
+      (final: prev: {
+        proton-ge-bin_10-25 = (prev.proton-ge-bin.override { steamDisplayName = "GE-Proton10-25"; }).overrideAttrs (old: {
+          pname = "proton-ge-bin_10-25";
+          version = "GE-Proton10-25";
+          src = final.fetchzip {
+            url = "https://github.com/Weather-OS/GDK-Proton/releases/download/{finalAttrs.version}/{finalAttrs.version}.tar.gz";
+            sha256 = "sha256-RKko4QMxtnuC1SAHTSEQGBzVyl3ywnirFSYJ1WKSY0k=";
+          };
+        });
+      })
+    ];
     config = {
       allowUnfree = true;
       packageOverrides = pkgs: {};
@@ -14,6 +26,7 @@
     gamescopeSession.enable = true;
     extraCompatPackages = with pkgs; [
       proton-ge-bin
+      proton-ge-bin_10-25
     ];
     protontricks.enable = true;
   };
@@ -37,17 +50,10 @@
     winetricks
     zenity                  # mod manager 2 installer requirement
     p7zip
-    sunshine                # game streaming
-    mangohud                # performance UI for vulkan applications
+    mangohud
     satisfactorymodmanager
   ];
 
-  security.wrappers.sunshine = {
-    owner = "root";
-    group = "root";
-    capabilities = "cap_sys_admin+p";
-    source = "${pkgs.sunshine}/bin/sunshine";
-  };
 
   # Xbox controller compatibility
   # hardware.xone.enable = true;
