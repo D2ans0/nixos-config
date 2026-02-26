@@ -105,8 +105,22 @@
 
   # Allow unfree packages
   nixpkgs = {
+    overlays = [
+      (final: prev: {
+        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+          (python-final: python-prev: {
+            picosvg = python-prev.picosvg.overridePythonAttrs (oldAttrs: {
+              doCheck = false;
+            });
+          })
+        ];
+      })
+    ];
     config = {
       allowUnfree = true;
+      packageOverrides = pkgs: {
+        anki-fix = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f0d576a127e78044495c0758613bc5fdd053ed23.tar.gz") {};
+      };
     };
   };
   # List packages installed in system profile. To search, run:
@@ -139,10 +153,8 @@
     xdotool
 
     # administration
-    azure-cli
     kubectl
     kubernetes-helm
-    remmina
     nix-index
 
     # socials
@@ -176,7 +188,7 @@
     koodo-reader
 
     # misc.
-    anki
+    anki-fix.anki
     kando
   ];
 
