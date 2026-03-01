@@ -27,9 +27,10 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernel.sysctl = {
-      "vm.swappiness" = 20;
-    };
+#    kernel.sysctl = {
+#      "vm.swappiness" = 20;
+#    };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   networking.hostName = "stumper"; # Define your hostname.
@@ -105,22 +106,8 @@
 
   # Allow unfree packages
   nixpkgs = {
-    overlays = [
-      (final: prev: {
-        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-          (python-final: python-prev: {
-            picosvg = python-prev.picosvg.overridePythonAttrs (oldAttrs: {
-              doCheck = false;
-            });
-          })
-        ];
-      })
-    ];
     config = {
       allowUnfree = true;
-      packageOverrides = pkgs: {
-        anki-fix = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f0d576a127e78044495c0758613bc5fdd053ed23.tar.gz") {};
-      };
     };
   };
   # List packages installed in system profile. To search, run:
@@ -138,6 +125,7 @@
     wireguard-tools
     qbittorrent
     htop
+    btop
     ctop
     vulkan-tools
     cosmic-term
@@ -188,7 +176,7 @@
     koodo-reader
 
     # misc.
-    anki-fix.anki
+    anki
     kando
   ];
 
