@@ -30,7 +30,7 @@
 #    kernel.sysctl = {
 #      "vm.swappiness" = 20;
 #    };
-    kernelPackages = pkgs.linuxPackages_latest;
+#    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   networking.hostName = "stumper"; # Define your hostname.
