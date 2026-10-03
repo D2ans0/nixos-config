@@ -1,15 +1,47 @@
-{ pkgs, ... }:
-{
+{pkgs, lib, ...}: let
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.strings) removeSuffix;
+in {
   nixpkgs = {
     overlays = [
       (final: prev: {
-        proton-ge-bin_10-25 = (prev.proton-ge-bin.override { steamDisplayName = "GE-Proton10-25"; }).overrideAttrs (old: {
-          pname = "proton-ge-bin_10-25";
+        proton-ge-bin_10-25 = prev.proton-ge-bin.overrideAttrs (finalAttrs: oldAttrs: {
           version = "GE-Proton10-25";
-          src = final.fetchzip {
-            url = "https://github.com/Weather-OS/GDK-Proton/releases/download/{finalAttrs.version}/{finalAttrs.version}.tar.gz";
-            sha256 = "sha256-RKko4QMxtnuC1SAHTSEQGBzVyl3ywnirFSYJ1WKSY0k=";
-          };
+          steamDisplayName = finalAttrs.version;
+          inherit (finalAttrs.passthru.variants.${prev.stdenv.hostPlatform.system}) src toolName;
+          passthru = oldAttrs.passthru // {
+              variants = mapAttrs (system: hash: let
+                  toolName = "${finalAttrs.version}"; # remove arch name as it messes up with name replacement
+                in {
+                  inherit toolName;
+                  src = final.fetchzip {
+                    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${finalAttrs.version}/${toolName}.tar.gz";
+                    inherit hash;
+                  };
+                }) {
+                  x86_64-linux = "sha256-RKko4QMxtnuC1SAHTSEQGBzVyl3ywnirFSYJ1WKSY0k=";
+                  #aarch64-linux = ""; # not used in my setup
+                };
+            };
+        });
+        proton-ge-bin_10-34 = prev.proton-ge-bin.overrideAttrs (finalAttrs: oldAttrs: {
+          version = "GE-Proton10-34";
+          steamDisplayName = finalAttrs.version;
+          inherit (finalAttrs.passthru.variants.${prev.stdenv.hostPlatform.system}) src toolName;
+          passthru = oldAttrs.passthru // {
+              variants = mapAttrs (system: hash: let
+                  toolName = "${finalAttrs.version}"; # remove arch name as it messes up with name replacement
+                in {
+                  inherit toolName;
+                  src = final.fetchzip {
+                    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${finalAttrs.version}/${toolName}.tar.gz";
+                    inherit hash;
+                  };
+                }) {
+                  x86_64-linux = "sha256-lzPsYYcrp5NoT3B0WFj3o10Z7tXx7xva1wEP3edeuqM=";
+                  #aarch64-linux = ""; # not used in my setup
+                };
+            };
         });
       })
     ];
@@ -19,6 +51,7 @@
     };
   };
 
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -27,6 +60,7 @@
     extraCompatPackages = with pkgs; [
       proton-ge-bin
       proton-ge-bin_10-25
+      proton-ge-bin_10-34
     ];
     protontricks.enable = true;
   };
@@ -45,10 +79,11 @@
   };
 
   environment.systemPackages = with pkgs; [
-    prismlauncher           # minecraft launcher
+    prismlauncher            # minecraft launcher
+    heroic                   # for epic games stuff
     wineWow64Packages.stable
     winetricks
-    zenity                  # mod manager 2 installer requirement
+    zenity                   # mod manager 2 installer requirement
     p7zip
     mangohud
     satisfactorymodmanager
