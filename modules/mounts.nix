@@ -1,4 +1,3 @@
-# { config, ... }:
 { ... }:
 {
   fileSystems."/mnt/media" = {
@@ -10,12 +9,10 @@
     in ["${automount_opts},credentials=/etc/nixos/secrets/smb-local,uid=1000,gid=2004"];
   };
 
-  boot.supportedFilesystems = [ "ntfs" ];
-
-  fileSystems."/run/media/d2/2TB NVME" = {
-   device = "/dev/disk/by-partuuid/3b438142-5c1a-440e-9787-1e7e593f114e";
-    fsType = "ntfs-3g";
-    options = [ "rw" "nosuid" "nodev" "nofail" "uid=1000" "gid=100" ];
+  fileSystems."/run/media/d2/2TB 980 EVO" = {
+   device = "/dev/disk/by-partuuid/6febc3c9-3d5a-4f4c-8857-e6b1b4d1b87d";
+    fsType = "ext4";
+    options = [ "nofail" ];
   };
 
   fileSystems."/run/media/d2/WDBlue 7200RPM" = {
@@ -24,9 +21,20 @@
     options = [ "nofail" ];
   };
 
-#  fileSystems."/run/media/d2/ADATA 256GB" = {
-#    device = "/dev/disk/by-partuuid/3bca77fa-4eb0-4bb1-87aa-3b354129e200";
-#    fsType = "ext4";
-#    options = [ "nofail" ];
-#  };
+  fileSystems."/run/media/d2/ADATA 256GB" = {
+    device = "/dev/disk/by-partuuid/fd6ee729-2ad6-417f-94cb-dadb5bf62742";
+    fsType = "ext4";
+    options = [ "nofail" ];
+  };
+
+  fileSystems."/run/media/d2/6TBChungucito" = {
+    device = "/dev/disk/by-partuuid/1921843c-9e55-4836-be86-0536ca2b59f2";
+    fsType = "ext4";
+    options = [ "nofail" ];
+  };
+
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 32*1024; # 32 GiB
+  }];
 }

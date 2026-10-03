@@ -20,37 +20,24 @@
     ];
 
   # Bootloader.
-#  boot.loader.systemd-boot.enable = true;
-#  boot.loader.efi.canTouchEfiVariables = true;
   boot = {
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-#    kernel.sysctl = {
-#      "vm.swappiness" = 20;
-#    };
-#    kernelPackages = pkgs.linuxPackages_latest;
+    kernel.sysctl = {
+      "vm.swappiness" = 50;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   networking.hostName = "stumper"; # Define your hostname.
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  nix.gc = { 
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d +1";
-  };
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     icu
     libgcc.lib
   ];
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -61,17 +48,19 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
+  i18n.extraLocales = ["all"];
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
+    LC_ADDRESS = "es_VE.UTF-8";
+    LC_MEASUREMENT = "es_VE.UTF-8";
+    LC_MESSAGES = "en_US.UTF-8";
+    LC_MONETARY = "es_VE.UTF-8";
+    LC_NAME = "es_VE.UTF-8";
     LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
+    LC_PAPER = "es_VE.UTF-8";
+    LC_TELEPHONE = "es_VE.UTF-8";
     LC_TIME = "en_DK.UTF-8";
+    LC_COLLATE = "es_VE.UTF-8";
   };
 
   services.xserver.enable = true;
@@ -90,6 +79,7 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+
   programs.zsh.enable = true;
 
   users.groups.docker = {};
@@ -111,7 +101,6 @@
     };
   };
   # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     # utilities
     zsh
@@ -149,35 +138,41 @@
     # teamspeak3 # removed because of qtwebengine 5, which depends on chromium. QT-WE5 doesn't get built by Hydra as it's insecure. I AM NOT BUILDING CHROMIUM JUST TO UPDATE MY DAMN SYSTEM
     telegram-desktop
     signal-desktop
+    (discord.override {
+      withVencord = true;
+    })
+    element-desktop
 
     # productivity
     thunderbird
     vim
     obsidian
-    zoom-us
 
     # programming
-    vscode
+    vscode.fhs
+    go
     delta # pager for git
     dbeaver-bin
-    rustup
     gcc
     pkg-config
+    jetbrains-toolbox
+    jetbrains.rider
+    dotnet-sdk_10
 
     # creative
     inkscape
     adwaita-icon-theme # undeclared inkscape dependency, waiting on #447250 in nixpkgs
     blender
-    pureref
+    # pureref # skipped due to hash mismatch
     gimp
 
     # fun
     spotify
-    koodo-reader
 
     # misc.
     anki
     kando
+    openrgb
   ];
 
   programs.obs-studio = {
@@ -201,6 +196,8 @@
     enable = true;
   };
 
+  services.hardware.openrgb.enable = true;
+
   services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
@@ -215,7 +212,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
     xdgOpenUsePortal = true;
   };
   services.flatpak.enable = true;
