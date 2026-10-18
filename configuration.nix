@@ -19,7 +19,7 @@
       ./modules/audio.nix
     ];
 
-  # Bootloader.
+  # Bootloader
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -30,6 +30,8 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
   };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "stumper"; # Define your hostname.
 
@@ -128,6 +130,7 @@
     ncdu
     jq
     xdotool
+    openlogi
 
     # administration
     kubectl
@@ -158,6 +161,7 @@
     jetbrains-toolbox
     jetbrains.rider
     dotnet-sdk_10
+    ghidra
 
     # creative
     inkscape
